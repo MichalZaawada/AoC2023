@@ -1,0 +1,10 @@
+111 + 110 + 101 = 322 one
+116 + 119 + 111 = 346 two
+526 three
+444 four
+426 five
+340 six
+545 seven
+529 eight
+426 nine
+
