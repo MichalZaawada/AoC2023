@@ -3,10 +3,6 @@
 
 #define LEN_OF_LINE 100
 
-struct Position {
-    int x;
-    int y;
-};
 
 size_t countLines(FILE *file) {
 
@@ -24,26 +20,47 @@ size_t countLines(FILE *file) {
 
 }
 
-char createBitMatrix(FILE *file, size_t length) {
-    
-}
-
-
 int problem1(FILE *file) {
 
-    size_t length = countLines(file);
+    size_t rowCount = countLines(file);
     
-    char line[LEN_OF_LINE], matrix[LEN_OF_LINE][length];
-    struct Position positions[LEN_OF_LINE*length];
+    char line[LEN_OF_LINE]; 
+
+    fgets(line, LEN_OF_LINE, file);
+    int columnCount = strlen(line)-1, matrix[columnCount][rowCount], row = 0;
+    fseek(file, 0, SEEK_SET);
 
     while (fgets(line,LEN_OF_LINE,file)) {
-        int n = strcspn(line, "!@#$%^&*");
         printf("%s", line);
+        for (int column = 0; column < columnCount; column++) {
+            int isMarked = strcspn(&line[column], "+-_!@#$%^&*");
+            matrix[row][column] = (!isMarked) ? 1 : 0;
+            printf("%i",matrix[row][column]);
+        }
+        row++;
+        printf("\n");
     }
-    printf("%zu", length);
-    
+
+    fseek(file, 0, SEEK_SET);
+
+    while (fgets(line,LEN_OF_LINE,file)) {
+        printf("%s", line);
+        
+        for (int column = 0; column < columnCount; column++) {
+            int isNumber = strcspn(&line[column], "1234567890");
+            if(!isNumber) {
+            
+            } 
+            printf("%i",matrix[row][column]);
+        }
+        row++;
+        printf("\n");
+    }
+
+
+    printf("%zu", rowCount);
     fclose(file);
-    
+
     return 0; 
 }
 
